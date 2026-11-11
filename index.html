@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePulse 3D | Organizador de Rotina</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js para o fundo 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Canvas para os objetos 3D no fundo -->
+    <canvas id="bg-3d"></canvas>
+
+    <!-- Overlay escuro para leitura -->
+    <div class="overlay"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <header class="header">
+            <h1>LifePulse<span>3D</span></h1>
+            <p>Sua rotina em perfeita harmonia e movimento</p>
+        </header>
+
+        <main class="cards-grid">
+            <!-- Card 1: Estudo -->
+            <div class="card" onclick="openModal('modal-estudo')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Estudos</h3>
+                    <p>Foco, aprendizado contínuo e desenvolvimento intelectual.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 2: Trabalho -->
+            <div class="card" onclick="openModal('modal-trabalho')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h3>Trabalho</h3>
+                    <p>Projetos, produtividade e conquistas profissionais.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 3: Lazer -->
+            <div class="card" onclick="openModal('modal-lazer')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-tv"></i></div>
+                    <h3>Lazer</h3>
+                    <p>Descanso, filmes, séries e tempo para descontrair.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 4: Hobby -->
+            <div class="card" onclick="openModal('modal-hobby')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h3>Hobby</h3>
+                    <p>Criatividade, paixões pessoais e momentos relaxantes.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 5: Vôlei (Esportes) -->
+            <div class="card" onclick="openModal('modal-volei')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-volleyball"></i></div>
+                    <h3>Vôlei & Esportes</h3>
+                    <p>Treinos de saque, manchete, levantamento e partidas.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 6: Saúde -->
+            <div class="card" onclick="openModal('modal-saude')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h3>Saúde</h3>
+                    <p>Hidratação, boa alimentação, sono e bem-estar físico.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Card 7: Organização da Casa -->
+            <div class="card" onclick="openModal('modal-casa')">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <h3>Organização da Casa</h3>
+                    <p>Arrumação, limpeza, tarefas domésticas e ambiente limpo.</p>
+                    <span class="btn-detalhes">Ver detalhes <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- EFEITO MODAL -->
+
+    <!-- Modal Estudos -->
+    <div id="modal-estudo" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-estudo')">×</span>
+            <h2><i class="fa-solid fa-graduation-cap"></i> Planejamento de Estudos</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> 09:00 - 11:30</p>
+                <p><strong>Foco do dia:</strong> Leitura teórica, resolução de exercícios e revisão de conteúdos acumulados.</p>
+                <ul>
+                    <li>Técnica Pomodoro (25 min de foco / 5 min de descanso)</li>
+                    <li>Anotações ativas e mapas mentais</li>
+                    <li>Revisão espaçada dos conteúdos da semana</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Trabalho -->
+    <div id="modal-trabalho" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-trabalho')">×</span>
+            <h2><i class="fa-solid fa-briefcase"></i> Rotina Profissional</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> 13:30 - 18:00</p>
+                <p><strong>Objetivos:</strong> Cumprir prazos, responder e-mails prioritários e avançar nos principais projetos.</p>
+                <ul>
+                    <li>Organizar lista de tarefas (To-Do) priorizada</li>
+                    <li>Blocos de foco sem interrupções e sem celular</li>
+                    <li>Reuniões e alinhamentos de demanda</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lazer -->
+    <div id="modal-lazer" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-lazer')">×</span>
+            <h2><i class="fa-solid fa-tv"></i> Tempo de Lazer</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> 20:30 - 22:00</p>
+                <p><strong>Atividades:</strong> Desconectar das obrigações diárias e curtir momentos de puro descanso.</p>
+                <ul>
+                    <li>Assistir a filmes, séries ou vídeos</li>
+                    <li>Ouvir música ou podcasts leves</li>
+                    <li>Desconectar-se de telas antes de dormir</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hobby -->
+    <div id="modal-hobby" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-hobby')">×</span>
+            <h2><i class="fa-solid fa-palette"></i> Meu Hobby</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> Fins de semana ou 3x na semana (19:00 - 20:00)</p>
+                <p><strong>Atividades:</strong> Expressão criativa, leitura casual, música, desenho ou jogos.</p>
+                <ul>
+                    <li>Desenvolver novos projetos pessoais</li>
+                    <li>Aprender habilidades sem cobrança por resultados</li>
+                    <li>Momento livre de estresse</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Vôlei -->
+    <div id="modal-volei" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-volei')">×</span>
+            <h2><i class="fa-solid fa-volleyball"></i> Treino de Vôlei</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> Terças e Quintas (18:30 - 20:30)</p>
+                <p><strong>Foco do Treino:</strong> Prática esportiva, condicionamento físico e trabalho em equipe.</p>
+                <ul>
+                    <li>Aquecimento e mobilidade articular preventiva</li>
+                    <li>Fundamentos: Saque por cima, manchete e levantamento</li>
+                    <li>Treino tático de ataque, bloqueio e partidas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Saúde -->
+    <div id="modal-saude" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-saude')">×</span>
+            <h2><i class="fa-solid fa-heart-pulse"></i> Cuidados com a Saúde</h2>
+            <div class="modal-body">
+                <p><strong>Monitoramento diário:</strong> Corpo, mente e alimentação equilibrada.</p>
+                <ul>
+                    <li>Ingestão diária de no mínimo 2,5 litros de água</li>
+                    <li>Alimentação rica em nutrientes e proteínas</li>
+                    <li>Qualidade de sono (7h a 8h por noite)</li>
+                    <li>Alongamentos matinais e meditação</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Casa -->
+    <div id="modal-casa" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-casa')">×</span>
+            <h2><i class="fa-solid fa-house-chimney-window"></i> Organização da Casa</h2>
+            <div class="modal-body">
+                <p><strong>Horário sugerido:</strong> 30 minutos diários (Bloco de Limpeza Rapida)</p>
+                <p><strong>Metodologia:</strong> Manter o ambiente limpo para garantir clareza mental.</p>
+                <ul>
+                    <li>Arrumar a cama logo ao acordar</li>
+                    <li>Lavar a louça e organizar a cozinha</li>
+                    <li>Organizar a mesa de estudos/trabalho ao final do dia</li>
+                    <li>Faxina geral programada para o sábado de manhã</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT EMBUTIDO -->
+    <script>
+        // --- GERENCIAMENTO DOS MODAIS ---
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "flex";
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Fechar modal ao clicar fora da caixa
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        };
+
+        // --- CENA THREE.JS (OBJETOS 3D FLUTUANTES) ---
+        const canvas = document.getElementById('bg-3d');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Criando formas geométricas 3D variadas
+        const geometries = [
+            new THREE.IcosahedronGeometry(1.2, 0),
+            new THREE.TorusGeometry(1, 0.4, 16, 50),
+            new THREE.OctahedronGeometry(1.3, 0),
+            new THREE.TetrahedronGeometry(1.4, 0),
+            new THREE.TorusKnotGeometry(0.8, 0.3, 100, 16)
+        ];
+
+        // Materiais com efeito 3D metálico/brilhante usando os tons de rosa
+        const materials = [
+            new THREE.MeshStandardMaterial({ color: 0xFF007A, metalness: 0.6, roughness: 0.2 }),
+            new THREE.MeshStandardMaterial({ color: 0xFF52A0, metalness: 0.4, roughness: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x99004C, metalness: 0.8, roughness: 0.1 })
+        ];
+
+        const floatingObjects = [];
+        const count = 25;
+
+        for (let i = 0; i < count; i++) {
+            const geom = geometries[Math.floor(Math.random() * geometries.length)];
+            const mat = materials[Math.floor(Math.random() * materials.length)];
+            const mesh = new THREE.Mesh(geom, mat);
+
+            // Posições aleatórias no espaço 3D
+            mesh.position.x = (Math.random() - 0.5) * 20;
+            mesh.position.y = (Math.random() - 0.5) * 20;
+            mesh.position.z = (Math.random() - 0.5) * 15 - 2;
+
+            // Rotações iniciais aleatórias
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+
+            // Velocidades de rotação e flutuação personalizadas
+            mesh.userData = {
+                rotSpeedX: (Math.random() - 0.5) * 0.02,
+                rotSpeedY: (Math.random() - 0.5) * 0.02,
+                floatSpeed: (Math.random() * 0.01) + 0.005,
+                floatOffset: Math.random() * Math.PI * 2
+            };
+
+            scene.add(mesh);
+            floatingObjects.push(mesh);
+        }
+
+        // Iluminação da cena 3D
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0xff007a, 2, 50);
+        pointLight1.position.set(10, 10, 10);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0xff52a0, 2, 50);
+        pointLight2.position.set(-10, -10, -10);
+        scene.add(pointLight2);
+
+        camera.position.z = 8;
+
+        // Loop de Animação
+        let clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            floatingObjects.forEach(obj => {
+                // Rotação
+                obj.rotation.x += obj.userData.rotSpeedX;
+                obj.rotation.y += obj.userData.rotSpeedY;
+
+                // Flutuação suave no eixo Y
+                obj.position.y += Math.sin(elapsedTime + obj.userData.floatOffset) * 0.005;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Ajustar visualização ao redimensionar a tela
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

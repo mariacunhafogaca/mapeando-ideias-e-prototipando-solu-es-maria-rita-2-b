@@ -1,0 +1,454 @@
+/* ==========================================================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  /* Paleta de Cores Rosa em Degradê 3D */
+  --bg-black: #050307;
+  --pink-neon: #ff2a85;
+  --pink-magenta: #ee1d52;
+  --purple-glow: #7928ca;
+  --pink-soft: #ff7ebb;
+  
+  --card-bg: rgba(20, 10, 25, 0.55);
+  --card-border: rgba(255, 42, 133, 0.25);
+  --text-main: #f3f3f6;
+  --text-muted: #a399b2;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   OBJETOS TRIDIMENSIONAIS (3D) VOANDO AO FUNDO
+   ========================================================================== */
+.bg-3d-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  perspective: 1000px;
+}
+
+.overlay-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 42, 133, 0.12), transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Formas Base 3D */
+.shape3d {
+  position: absolute;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 15px 35px rgba(238, 29, 82, 0.4));
+  animation: float 18s infinite ease-in-out alternate;
+}
+
+/* Esfera 1 (Degradê Rosa Neon a Roxo) */
+.sphere-1 {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  top: 10%;
+  left: 8%;
+  background: radial-gradient(circle at 35% 35%, var(--pink-soft), var(--pink-neon), var(--purple-glow));
+  box-shadow: inset -10px -10px 30px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 42, 133, 0.4);
+  animation-duration: 14s;
+}
+
+/* Toro / Anel 3D 1 */
+.torus-1 {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 35px solid transparent;
+  border-top-color: var(--pink-neon);
+  border-right-color: var(--pink-magenta);
+  border-bottom-color: var(--purple-glow);
+  bottom: 15%;
+  right: 5%;
+  transform: rotateX(65deg) rotateY(25deg);
+  animation: rotateTorus 22s infinite linear;
+  box-shadow: 0 0 40px rgba(255, 42, 133, 0.3);
+}
+
+/* Cubo Tridimensional Rotacionando */
+.cube-1 {
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  left: 12%;
+  background: linear-gradient(135deg, var(--pink-neon), var(--purple-glow));
+  border-radius: 20px;
+  transform: rotateX(45deg) rotateY(45deg) rotateZ(20deg);
+  animation: cubeSpin 16s infinite ease-in-out alternate;
+  box-shadow: 0 20px 50px rgba(121, 40, 202, 0.5);
+}
+
+/* Esfera 2 (Menor) */
+.sphere-2 {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  top: 25%;
+  right: 18%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, var(--pink-neon), var(--pink-magenta));
+  box-shadow: inset -5px -5px 20px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 126, 187, 0.5);
+  animation-duration: 10s;
+}
+
+/* Pirâmide / Diamante 3D */
+.pyramid-1 {
+  width: 100px;
+  height: 100px;
+  bottom: 10%;
+  left: 45%;
+  background: linear-gradient(45deg, var(--pink-magenta), var(--purple-glow));
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transform: rotate(25deg);
+  animation: float 12s infinite ease-in-out reverse;
+}
+
+/* Anel 2 */
+.torus-2 {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 18px solid var(--pink-soft);
+  top: 5%;
+  right: 40%;
+  opacity: 0.6;
+  transform: rotateX(50deg) rotateZ(-30deg);
+  animation: float 20s infinite ease-in-out;
+}
+
+/* Animações Keyframes para o efeito 3D */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(-35px) rotate(15deg) scale(1.05); }
+  100% { transform: translateY(20px) rotate(-10deg) scale(0.95); }
+}
+
+@keyframes rotateTorus {
+  0% { transform: rotateX(65deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes cubeSpin {
+  0% { transform: rotateX(15deg) rotateY(15deg) translateY(0); }
+  50% { transform: rotateX(180deg) rotateY(90deg) translateY(-40px); }
+  100% { transform: rotateX(360deg) rotateY(360deg) translateY(0); }
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL E CONTAINER
+   ========================================================================== */
+.app-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--pink-neon), var(--purple-glow));
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 20px rgba(255, 42, 133, 0.4);
+}
+
+.main-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+.main-header h1 span {
+  background: linear-gradient(90deg, var(--pink-soft), var(--pink-neon), var(--purple-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   GRID E CARDS DE ROTINAS
+   ========================================================================== */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.8rem;
+  width: 100%;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Brilho no topo do card ao passar o mouse */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(255, 42, 133, 0.15), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--pink-neon);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 42, 133, 0.3);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-icon {
+  font-size: 2.8rem;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  filter: drop-shadow(0 5px 15px rgba(255, 42, 133, 0.3));
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.card-tag {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pink-soft);
+  background: rgba(255, 42, 133, 0.1);
+  border: 1px solid rgba(255, 42, 133, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+}
+
+/* Destaque para Esportes (Vôlei & Academia) */
+.highlight-card {
+  border-color: rgba(255, 42, 133, 0.6);
+  background: linear-gradient(145deg, rgba(35, 12, 35, 0.7), rgba(15, 5, 20, 0.8));
+}
+
+/* ==========================================================================
+   MODAL INTERATIVO
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 1, 5, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: #0d0612;
+  border: 1px solid var(--pink-neon);
+  border-radius: 28px;
+  width: 100%;
+  max-width: 550px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 42, 133, 0.35);
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-backdrop.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--pink-neon);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1.2rem;
+}
+
+.modal-icon {
+  font-size: 3rem;
+  background: rgba(255, 42, 133, 0.15);
+  padding: 0.8rem;
+  border-radius: 20px;
+}
+
+.modal-header h2 {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.modal-time {
+  font-size: 0.85rem;
+  color: var(--pink-soft);
+  font-weight: 600;
+}
+
+.modal-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.modal-body h3 {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.modal-list {
+  list-style: none;
+  margin-bottom: 1.8rem;
+}
+
+.modal-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-main);
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--pink-neon), var(--purple-glow));
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.modal-tip {
+  background: rgba(255, 42, 133, 0.08);
+  border-left: 4px solid var(--pink-neon);
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .main-header h1 {
+    font-size: 2.2rem;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .modal-card {
+    padding: 1.8rem;
+  }
+}

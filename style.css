@@ -241,7 +241,6 @@ body {
   justify-content: space-between;
 }
 
-/* Brilho no topo do card ao passar o mouse */
 .card::before {
   content: '';
   position: absolute;
